@@ -9,8 +9,8 @@ SoftwareSerial xbeeSerial(2, 3);
 XBee xbee = XBee();
 
 // 64-bit Zigbee addresses of each joiner (SH + SL read from XCTU)
-XBeeAddress64 joiner0 = XBeeAddress64(0x0013A200, 0x426E0EB9);
-XBeeAddress64 joiner1 = XBeeAddress64(0x0013A200, 0x426E1209);
+XBeeAddress64 joiner0 = XBeeAddress64(0x0013A200, 0x427638B1);
+XBeeAddress64 joiner1 = XBeeAddress64(0x0013A200, 0x426E0F29);
 
 #define LED_PIN 13  // Onboard LED
 #define BTN_PIN 8   // Push button (active low)
