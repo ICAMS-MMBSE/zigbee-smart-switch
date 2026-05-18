@@ -3,7 +3,6 @@ import serial
 import json
 from typing import Annotated
 from pathlib import Path
-from digi.xbee.devices import XBeeDevice
 
 app = typer.Typer(no_args_is_help=True,
                   help="Manage and monitor Zigbee smart switch network via the commissioner"
@@ -19,8 +18,22 @@ def load_config() -> dict:
     with open(CONFIG_PATH) as f:
         return json.load(f)
 
+#Helper function -- sends command serially to arduino
+def send_command(command: str) -> list[str]:
+    """Send a command to the Arduino and collect the response lines."""
+    config = load_config() #defined by init (port, baud rate)
+    lines = []
+    with serial.Serial(config["port"], config["baud_rate"], timeout=5) as ser: #establish serial connection
+        ser.write(f"{command}\n".encode()) #write command
+        while True:
+            line = ser.readline().decode().strip() #read
+            if not line:
+                break #break otherwise
+            lines.append(line) #add to lines array
+    return lines #return
 
-@app.command(no_args_is_help=True)
+#Helper command to setup commissioner once and remember
+@app.command()
 def init(
     port: Annotated[str, typer.Argument(help="Serial port, e.g. /dev/ttyACM0")],
     baud_rate: Annotated[int, typer.Option(help="Baud rate")] = 115200
@@ -32,10 +45,10 @@ def init(
         json.dump(config, f, indent=2)
     print(f"Config saved: {port} at {baud_rate} baud")
 
-
+#Establish serial communication to Arduino
 @app.command()
 def ping():
-    """Test basic serial connection to Commissioner."""
+    """Test basic serial connection to the Arduino."""
     config = load_config()
     try:
         ser = serial.Serial(config["port"], config["baud_rate"], timeout=3)
@@ -45,58 +58,42 @@ def ping():
     except Exception as e:
         print(f"Failed to connect: {e}")
 
+#Needs to be implemented -- should work like RCP_AT_TEST.ino
+@app.command()
+def ATping():
+    """Test serial communication to RCP through the Arduino."""
+    print("Establishing connection...")
+    try:
+        lines = send_command("AT_PING")
+        for line in lines:
+            print(line)
+    except Exception as e:
+        print(f"Discovery failed: {e}")
 
+#Needs to be implemented
 @app.command()
 def discover():
     """Discover all XBee devices on the network."""
-    config = load_config()
-    device = XBeeDevice(config["port"], config["baud_rate"])
-
+    print("Discovering devices...")
     try:
-        device.open()
-
-        network = device.get_network()
-        network.start_discovery_process()
-
-        print("Discovering devices...")
-        while network.is_discovery_running():
-            pass
-
-        devices = network.get_devices()
-        for d in devices:
-            print(f"Found: {d.get_node_id()} - {d.get_64bit_addr()}")
+        lines = send_command("DISCOVER")
+        for line in lines:
+            print(line)
     except Exception as e:
         print(f"Discovery failed: {e}")
-    finally:
-        device.close()
-
-
+        
+#Needs to be implemented
 @app.command(no_args_is_help=True)
 def status(
     node_id: Annotated[str, typer.Argument(help="Node Identifier, e.g. SS_0")],
 ):
     """Fetch the status of a specific device by its Node Identifier."""
-    config = load_config()
-    commander = XBeeDevice(config["port"], config["baud_rate"])
     try:
-        commander.open()
-        network = commander.get_network()
-        network.start_discovery_process()
-        while network.is_discovery_running():
-            pass
-
-        device = network.get_device_by_node_id(node_id)
-        if device is None:
-            print(f"Device '{node_id}' not found on network")
-            return
-
-        print(f"Node ID: {device.get_node_id()}")
-        print(f"Address: {device.get_64bit_addr()}")
-
+        lines = send_command(f"STATUS {node_id}")
+        for line in lines:
+            print(line)
     except Exception as e:
-        print(f"Failed: {e}")
-    finally:
-        commander.close()
+        print(f"Status failed: {e}")
 
 
 # TO DO:
