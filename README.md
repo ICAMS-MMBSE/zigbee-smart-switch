@@ -22,7 +22,9 @@ Firmware is written in C++ using the Arduino framework, built and flashed via [P
 3. PlatformIO will auto-install dependencies on first build
 4. Flash via the upload arrow in the bottom toolbar
 ### Programming the RCP
+
 > **Note:** You **must** use the XBee Grove Development Board and XCTU to program the RCP. Plug in with USB micro B and add device to XCTU.
+
 | | Commissioner | Joiner |
 | --- | --- | --- |
 | **CE** Device Role | Form Network [1] | Join Network [0] |
