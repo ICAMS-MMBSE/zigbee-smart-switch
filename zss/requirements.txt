@@ -1,2 +1,3 @@
 typer
+pyserial
 digi-xbee

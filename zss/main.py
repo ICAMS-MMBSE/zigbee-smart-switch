@@ -10,7 +10,6 @@ app = typer.Typer(no_args_is_help=True,
 
 CONFIG_PATH = Path.home() / ".zss" / "config.json"
 
-
 def load_config() -> dict:
     if not CONFIG_PATH.exists():
         typer.echo("No config found. Run 'init' first.")
@@ -18,24 +17,24 @@ def load_config() -> dict:
     with open(CONFIG_PATH) as f:
         return json.load(f)
 
-#Helper function -- sends command serially to arduino
+# Helper function -- sends command serially to arduino
 def send_command(command: str) -> list[str]:
     """Send a command to the Arduino and collect the response lines."""
-    config = load_config() #defined by init (port, baud rate)
+    config = load_config() # defined by init (port, baud rate)
     lines = []
-    with serial.Serial(config["port"], config["baud_rate"], timeout=5) as ser: #establish serial connection
-        ser.write(f"{command}\n".encode()) #write command
+    with serial.Serial(config["port"], config["baud_rate"], timeout=5) as ser: # establish serial connection
+        ser.write(f"{command}\n".encode()) # write command
         while True:
-            line = ser.readline().decode().strip() #read
+            line = ser.readline().decode().strip() # read
             if not line:
-                break #break otherwise
-            lines.append(line) #add to lines array
-    return lines #return
+                break # break on empty line (end of response)
+            lines.append(line) # add to lines array
+    return lines # return
 
-#Helper command to setup commissioner once and remember
+# Helper command to setup commissioner once and remember
 @app.command()
 def init(
-    port: Annotated[str, typer.Argument(help="Serial port, e.g. /dev/ttyACM0")],
+    port: Annotated[str, typer.Argument(help="Serial port, e.g. COM4 or /dev/ttyACM0")],
     baud_rate: Annotated[int, typer.Option(help="Baud rate")] = 115200
 ):
     """Initialize the commissioner connection and save config."""
@@ -45,7 +44,7 @@ def init(
         json.dump(config, f, indent=2)
     print(f"Config saved: {port} at {baud_rate} baud")
 
-#Establish serial communication to Arduino
+# Establish serial communication to Arduino
 @app.command()
 def ping():
     """Test basic serial connection to the Arduino."""
@@ -58,7 +57,7 @@ def ping():
     except Exception as e:
         print(f"Failed to connect: {e}")
 
-#Needs to be implemented -- should work like RCP_AT_TEST.ino
+# Queries SH, SL, and AI from the XBee RCP through the Arduino
 @app.command()
 def ATping():
     """Test serial communication to RCP through the Arduino."""
@@ -68,9 +67,9 @@ def ATping():
         for line in lines:
             print(line)
     except Exception as e:
-        print(f"Discovery failed: {e}")
+        print(f"ATping failed: {e}")
 
-#Needs to be implemented
+# Discovers all XBee devices on the network
 @app.command()
 def discover():
     """Discover all XBee devices on the network."""
@@ -81,8 +80,8 @@ def discover():
             print(line)
     except Exception as e:
         print(f"Discovery failed: {e}")
-        
-#Needs to be implemented
+
+# Fetches status of a specific node by Node Identifier
 @app.command(no_args_is_help=True)
 def status(
     node_id: Annotated[str, typer.Argument(help="Node Identifier, e.g. SS_0")],
@@ -95,9 +94,21 @@ def status(
     except Exception as e:
         print(f"Status failed: {e}")
 
+# Turn a joiner LED on or off by Node Identifier
+@app.command(no_args_is_help=True)
+def switch(
+    node_id: Annotated[str, typer.Argument(help="Node Identifier, e.g. SS_0 or ALL")],
+    state: Annotated[int, typer.Argument(help="1 = on, 0 = off")],
+):
+    """Turn a joiner LED on or off by Node Identifier."""
+    try:
+        lines = send_command(f"LED {node_id} {state}")
+        for line in lines:
+            print(line)
+    except Exception as e:
+        print(f"Switch failed: {e}")
 
 # TO DO:
-# switch -- turn a device on/off
 # signal -- get RSSI/signal strength of a specific device, useful for network health
 # summary -- give useful stats at a glance
 # MQTT configuration: listen and publish

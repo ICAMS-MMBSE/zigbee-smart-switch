@@ -16,16 +16,13 @@ A Zigbee-based smart switch prototype built with Digi XBee3, Arduino Uno R4 WiFi
 | [Docker Compose](__https://docs.docker.com/compose/__) | Containerizes each service |
 ## Firmware
 Firmware is written in C++ using the Arduino framework, built and flashed via [PlatformIO](__https://platformio.org/__) in VS Code. Libraries are managed per-project in `platformio.ini`.
-
 ### Setup
 1. Install [VS Code](https://code.visualstudio.com/) and the [PlatformIO extension](__https://platformio.org/install/ide?install=vscode__)
 2. Open `Commissioner/` or `Joiner/` as the workspace root in VS Code
 3. PlatformIO will auto-install dependencies on first build
 4. Flash via the upload arrow in the bottom toolbar
-
 ### Programming the RCP
 > **Note:** You **must** use the XBee Grove Development Board and XCTU to program the RCP. Plug in with USB micro B and add device to XCTU.
-
 | | Commissioner | Joiner |
 | --- | --- | --- |
 | **CE** Device Role | Form Network [1] | Join Network [0] |
@@ -37,9 +34,8 @@ Firmware is written in C++ using the Arduino framework, built and flashed via [P
 | **AP** API Enable | API Mode With Escapes [2] | API Mode With Escapes [2] |
 | **SM** Sleep Mode | No Sleep (Router) [0] | No Sleep (Router) [0] |
 | **EE** Encryption Enable | Disabled [0] | Disabled [0] |
-
 ## Python CLI -- ZSS
-A CLI is implemented using the [Digi XBee Python Library](__https://github.com/digidotcom/xbee-python__) ([docs](__https://xbplib.readthedocs.io/en/latest/__)) and [Typer](__https://typer.tiangolo.com/__). It provides:
+A CLI implemented using [pyserial](https://pypi.org/project/pyserial/) and [Typer](__https://typer.tiangolo.com/__). It provides:
 1. An interface between the end user and the smart switch
 2. Methods for device control, network discovery, and testing
 This will be called ZSS, or Zigbee Smart Switch.
@@ -47,14 +43,17 @@ This will be called ZSS, or Zigbee Smart Switch.
 Create and activate a virtual environment, then install dependencies:
 ```bash
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install -r zss/requirements.txt
+venv\Scripts\activate        # Windows: venv\bin\activate (Linux/Mac)
+pip install -r requirements.txt
 ```
 > **VSCode tip:** Open the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) → **Python: Select Interpreter** → select `./venv/bin/python`. VSCode will then auto-activate the venv in every new integrated terminal.
 ### Usage
 ```bash
 python main.py --help
-python main.py <command> [OPTIONS]
+python main.py init <port>              # e.g. init COM4
+python main.py ping                     # test serial connection
+python main.py atping                   # query XBee RCP via AT commands
+python main.py switch <node_id> <0|1>   # e.g. switch SS_1 1, switch ALL 0
 ```
 ## References
 - [XBee Shield Hookup Guide](__https://learn.sparkfun.com/tutorials/xbee-shield-hookup-guide/all#example-communication-test__)
