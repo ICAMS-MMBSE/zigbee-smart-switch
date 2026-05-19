@@ -77,8 +77,7 @@ python main.py switch <node_id> <0|1>   # e.g. switch SS_1 1, switch ALL 0
 
 ### ZSS API Reference
 
-### ZSS API Reference
-
+[Zigbee API frame structure](https://docs.digi.com/resources/documentation/digidocs/rf-docs/blu/blu-api-frames_c.html)
 | Command | Function | Implemented |
 |---------|----------|-------------|
 | AT_PING | Basic "are you there?" signal. Tests serial communication between the XBee radio and your computer through the Arduino. | Yes |
@@ -89,10 +88,14 @@ python main.py switch <node_id> <0|1>   # e.g. switch SS_1 1, switch ALL 0
 | SIGNAL {node_id} | Get the RSSI signal strength of a specific node. Useful for diagnosing network health. | No |
 | SUMMARY | Discover all nodes and display a combined status overview in a single table. | No |
 
+## KiCad Setup
+
 
 ## References
-- [XBee Shield Hookup Guide](__https://learn.sparkfun.com/tutorials/xbee-shield-hookup-guide/all#example-communication-test__)
-- [Arduino Uno R4 WiFi Docs](__https://docs.arduino.cc/hardware/uno-r4-wifi/__)
-- [Arduino Language Reference](__https://docs.arduino.cc/learn/programming/reference/#structure/__)
-- [XBee Grove Development Board User Guide](__https://docs.digi.com/resources/documentation/digidocs/pdfs/90001457-13.pdf__)
-- [PlatformIO Documentation](__https://docs.platformio.org/__)
+- [Digit XBee 3](https://hub.digi.com/support/products/digi-xbee/digi-xbee3/)
+- [XBee Shield Hookup Guide](https://learn.sparkfun.com/tutorials/xbee-shield-hookup-guide/all#example-communication-test)
+- [Arduino Uno R4 WiFi Docs](https://docs.arduino.cc/hardware/uno-r4-wifi/)
+- [Arduino Language Reference](https://docs.arduino.cc/learn/programming/reference/#structure/)
+- [XBee Grove Development Board User Guide](https://docs.digi.com/resources/documentation/digidocs/pdfs/90001457-13.pdf)
+- [PlatformIO Documentation](https://docs.platformio.org/)
+- [Digi XBee Python Library (not used, but helpful)](https://xbplib.readthedocs.io/en/latest/index.html)

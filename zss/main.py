@@ -59,7 +59,7 @@ def ping():
 
 # Queries SH, SL, and AI from the XBee RCP through the Arduino
 @app.command()
-def ATping():
+def atping():
     """Test serial communication to RCP through the Arduino."""
     print("Establishing connection...")
     try:
