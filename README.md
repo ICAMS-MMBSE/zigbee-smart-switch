@@ -24,19 +24,20 @@ Firmware is written in C++ using the Arduino framework, built and flashed via [P
 4. Flash via the upload arrow in the bottom toolbar
 
 ### Programming the RCP
-> **Note:** You **must** use the XBee Grove Development Board and XCTU to program the RCP. Connect via USB Micro-B and add the device in XCTU.
-The following AT parameters should be configured for the Commissioner (coordinator) and Joiner (router) roles:
-| Parameter | Commissioner | Joiner |
-|---|---|---|
-| **CE** Device Role | Form Network `[1]` | Join Network `[0]` |
-| **ID** Extended PAN ID | `1234` | `1234` |
-| **JV** Coordinator Verification | Enabled `[1]` | Disabled `[0]` |
-| **JN** Join Notification | Disabled `[0]` | Enabled `[1]` |
-| **NI** Node Identifier | `SS_Comm` | `SS_x` (0, 1, ...) |
-| **BD** UART Baud Rate | `115200` | `115200` |
-| **AP** API Enable | API Mode With Escapes `[2]` | API Mode With Escapes `[2]` |
-| **SM** Sleep Mode | No Sleep / Router `[0]` | No Sleep / Router `[0]` |
-| **EE** Encryption Enable | Disabled `[0]` | Disabled `[0]` |
+> **Note:** You **must** use the XBee Grove Development Board and XCTU to program the RCP. Plug in with USB micro B and add device to XCTU.
+
+| | Commissioner | Joiner |
+| --- | --- | --- |
+| **CE** Device Role | Form Network [1] | Join Network [0] |
+| **ID** Extended PAN ID | 1234 | 1234 |
+| **JV** Coordinator Verification | Enabled [1] | Disabled [0] |
+| **JN** Join Notification | Disabled [0] | Enabled [1] |
+| **NI** Node Identifier | SS_Comm | SS_x (0...) |
+| **BD** UART Baud Rate | 115200 | 115200 |
+| **AP** API Enable | API Mode With Escapes [2] | API Mode With Escapes [2] |
+| **SM** Sleep Mode | No Sleep (Router) [0] | No Sleep (Router) [0] |
+| **EE** Encryption Enable | Disabled [0] | Disabled [0] |
+
 ## Python CLI -- ZSS
 A CLI is implemented using the [Digi XBee Python Library](__https://github.com/digidotcom/xbee-python__) ([docs](__https://xbplib.readthedocs.io/en/latest/__)) and [Typer](__https://typer.tiangolo.com/__). It provides:
 1. An interface between the end user and the smart switch
