@@ -4,10 +4,24 @@
 
 // Send single byte payload to target XBee address (on = 0x01, off = 0x00)
 // 0xFFFE forces 64-bit address routing, avoids stale 16-bit address issues
+// void sendLED(XBee& xbee, XBeeAddress64 addr, uint8_t state) {
+//     uint8_t payload[] = { state };
+//     ZBTxRequest tx = ZBTxRequest(addr, 0xFFFE, 0, 0, payload, sizeof(payload), 0);
+//     xbee.send(tx);
+// }
+
 void sendLED(XBee& xbee, XBeeAddress64 addr, uint8_t state) {
-    uint8_t payload[] = { state };
-    ZBTxRequest tx = ZBTxRequest(addr, 0xFFFE, 0, 0, payload, sizeof(payload), 0);
-    xbee.send(tx);
+    // D1 high = 0x05, D1 low = 0x04
+    uint8_t d1Cmd[] = {'D', '1'};
+    uint8_t cmdValue[] = { state ? 0x05 : 0x04 }; // 0x05 = Digital High, 0x04 = Digital Low
+    
+    RemoteAtCommandRequest remoteAtRequest = RemoteAtCommandRequest(
+        addr,           // 64-bit destination address
+        d1Cmd,          // AT command: D1
+        cmdValue,       // value: high or low
+        sizeof(cmdValue)
+    );
+    xbee.send(remoteAtRequest);
 }
 
 void LEDon(XBee& xbee) {

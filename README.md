@@ -44,6 +44,7 @@ Firmware is written in C++ using the Arduino framework, built and flashed via [P
 | **AP** API Enable | API Mode With Escapes [2] | API Mode With Escapes [2] |
 | **SM** Sleep Mode | No Sleep (Router) [0] | No Sleep (Router) [0] |
 | **EE** Encryption Enable | Disabled [0] | Disabled [0] |
+| **D1** DIO1 Configuration | Disable [0] | Digital Out, Low [4] |
 
 ## Python CLI - ZSS
 
