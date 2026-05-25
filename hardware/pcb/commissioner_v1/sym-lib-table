@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "XBee3_SMT") (type "KiCad") (uri "${KIPRJMOD}/XBee3/XBee3_SMT.kicad_sym") (options "") (descr ""))
+)
