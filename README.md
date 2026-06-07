@@ -6,7 +6,7 @@ A Zigbee-based smart switch system for remote dehumidifier control, built for In
 - Build a smart switch to control a device remotely
 - Integrate IoT connection through Mosquitto
 - Containerize services for portability
-- Prototype using the Digi XBee3 Zigbee 3.0 TH module with an ESP32-S3 (commissioner) and ESP32-C3 (joiner)
+- Prototype using the Digi XBee3 Zigbee 3.0 TH module with an ESP32-S3 (coordinator) and ESP32-C3 (joiner)
 
 ## Frameworks & Software
 
@@ -24,7 +24,7 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 ### Setup
 
 1. Install [VS Code](https://code.visualstudio.com/) and the [PlatformIO extension](https://platformio.org/install/ide?install=vscode)
-2. Open `Commissioner/` or `Joiner/` as the workspace root in VS Code
+2. Open `coordinator_esp32-s3/` or `joiner_esp32-c3/` as the workspace root in VS Code
 3. PlatformIO will auto-detect the target from `platformio.ini`
 4. Build and flash via the PlatformIO toolbar, or `pio run -t upload`
 
@@ -32,7 +32,7 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 
 > **Note:** You **must** use the XBee Grove Development Board and XCTU to program the XBee modules. Plug in with USB micro-B and add device to XCTU.
 
-| | Commissioner | Joiner |
+| | Coordinator | Joiner |
 | --- | --- | --- |
 | **CE** Device Role | Form Network [1] | Join Network [0] |
 | **ID** Extended PAN ID | 1234 | 1234 |
@@ -46,7 +46,7 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 
 ### Firmware Structure
 
-#### Commissioner (`firmware/Commissioner/`)
+#### Coordinator (`firmware/coordinator_esp32-s3/`)
 ```
 config.h
 xbee.h/.c       — raw API frame TX/RX, AT commands, ping, RX task
@@ -58,12 +58,12 @@ mqtt.h/.c       — MQTT client, command handler, state publisher
 main.c
 ```
 
-#### Joiner (`firmware/Joiner/`)
+#### Joiner (`firmware/joiner_esp32-c3/`)
 ```
 config.h
 xbee.h/.c       — raw API frame TX/RX, state reporting
 relay.h/.c      — relay GPIO control
-button.h/.c     — manual override, reports state to commissioner
+button.h/.c     — manual override, reports state to coordinator
 main.c
 ```
 
@@ -74,7 +74,7 @@ main.c
 
 ## Hardware
 
-### Commissioner
+### Coordinator
 - ESP32-S3-WROOM-1 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
 - GPIO: IO16 LED, IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
 
@@ -88,7 +88,7 @@ main.c
 
 `zss` (Zigbee Smart Switch) is a CLI tool implemented using [Typer](https://typer.tiangolo.com/).
 Purpose:
-1. Provide an interface between the end user and the commissioner
+1. Provide an interface between the end user and the coordinator
 2. Serve as middleware to be connected into a larger system (abstraction)
 3. Provide a simple way to interact with RCP without reflashing firmware
 
@@ -128,12 +128,12 @@ python main.py switch <node_id> <0|1>   # e.g. switch SS_1 1, switch ALL 0
 | SUMMARY | Discover all nodes and display a combined status overview in a single table. | No |
 
 ## KiCad Setup
-- Commissioner PCB in progress
+- Coordinator PCB in progress
 - Joiner PCB pending Dr. Osho power spec confirmation
 
 ## Raspberry Pi Broker Setup
 
-The Pi runs a Mosquitto MQTT broker and connects directly to the commissioner via ethernet.
+The Pi runs a Mosquitto MQTT broker and connects directly to the coordinator via ethernet.
 
 ### Network
 Create `/etc/systemd/network/10-eth0.network`:
@@ -167,9 +167,9 @@ sudo systemctl restart mosquitto
 ### MQTT Topics
 | Topic | Direction | Description |
 |-------|-----------|-------------|
-| `switch/all/cmd` | Pi → Commissioner | Command all nodes |
-| `switch/1/cmd` | Pi → Commissioner | Command node 1 |
-| `switch/SS_1/state` | Commissioner → Pi | Joiner state report |
+| `switch/all/cmd` | Pi → Coordinator | Command all nodes |
+| `switch/1/cmd` | Pi → Coordinator | Command node 1 |
+| `switch/SS_1/state` | Coordinator → Pi | Joiner state report |
 
 Supported commands: `ON`, `OFF`, `TOGGLE`, `POLL`
 
@@ -189,12 +189,13 @@ mosquitto_sub -h localhost -t "switch/SS_1/state"
 ```
 
 ## Roadmap
-- [x] W5500 Ethernet on commissioner
-- [x] Connect commissioner to Raspberry Pi MQTT broker
-- [ ] MQTT integration
-- [x] Humidity-threshold automation
+- [x] Finalize coordinator and joiner firmware
+- [x] W5500 Ethernet on coordinator
+- [x] Connect coordinator to Raspberry Pi MQTT broker
+- [x] MQTT integration
+- [ ] Humidity-threshold automation
 - [ ] Joiner PCB
-- [ ] Finalize Commissioner PCB
+- [ ] Finalize coordinator PCB
 - [ ] Order and Assemble PCBs
 - [ ] Containerize services
 
