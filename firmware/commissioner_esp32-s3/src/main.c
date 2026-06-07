@@ -2,6 +2,8 @@
 #include "freertos/task.h"
 #include "driver/uart.h"
 #include "esp_log.h"
+#include "ethernet.h"
+#include "mqtt.h"
 #include "xbee.h"
 #include "discovery.h"
 #include "relay.h"
@@ -67,7 +69,7 @@ static void console_task(void *arg)
 void app_main(void)
 {
     ESP_LOGI(TAG, "Commissioner starting...");
-
+    ethernet_init();
     button_init();
     relay_led_init();
     xbee_init();
@@ -83,5 +85,6 @@ void app_main(void)
     xTaskCreate(button_task,  "button_task",  2048, NULL, 5, NULL);
     xTaskCreate(console_task, "console_task", 4096, NULL, 4, NULL);
 
+    mqtt_init();
     ESP_LOGI(TAG, "Commissioner ready");
 }

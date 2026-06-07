@@ -53,6 +53,8 @@ xbee.h/.c       — raw API frame TX/RX, AT commands, ping, RX task
 discovery.h/.c  — ND-based dynamic node table
 relay.h/.c      — command routing, LED state
 button.h/.c     — physical button, triggers toggle to all nodes
+ethernet.h/.c   — W5500 SPI ethernet, static IP
+mqtt.h/.c       — MQTT client, command handler, state publisher
 main.c
 ```
 
@@ -73,8 +75,8 @@ main.c
 ## Hardware
 
 ### Commissioner
-- ESP32-S3-WROOM-1 + XBee3 Zigbee 3.0 TH
-- GPIO: IO16 LED, IO15 button, IO6/IO7 XBee UART
+- ESP32-S3-WROOM-1 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
+- GPIO: IO16 LED, IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
 
 ### Joiner
 - ESP32-C3 Super Mini + XBee3 Zigbee 3.0 TH
@@ -129,10 +131,68 @@ python main.py switch <node_id> <0|1>   # e.g. switch SS_1 1, switch ALL 0
 - Commissioner PCB in progress
 - Joiner PCB pending Dr. Osho power spec confirmation
 
+## Raspberry Pi Broker Setup
+
+The Pi runs a Mosquitto MQTT broker and connects directly to the commissioner via ethernet.
+
+### Network
+Create `/etc/systemd/network/10-eth0.network`:
+```
+[Match]
+Name=eth0
+
+[Network]
+Address=192.168.2.1/24
+```
+```bash
+sudo systemctl enable systemd-networkd
+sudo systemctl restart systemd-networkd
+```
+
+### Mosquitto
+```bash
+sudo apt update && sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto
+```
+
+Create `/etc/mosquitto/conf.d/local.conf`:
+```
+listener 1883
+allow_anonymous true
+```
+```bash
+sudo systemctl restart mosquitto
+```
+
+### MQTT Topics
+| Topic | Direction | Description |
+|-------|-----------|-------------|
+| `switch/all/cmd` | Pi → Commissioner | Command all nodes |
+| `switch/1/cmd` | Pi → Commissioner | Command node 1 |
+| `switch/SS_1/state` | Commissioner → Pi | Joiner state report |
+
+Supported commands: `ON`, `OFF`, `TOGGLE`, `POLL`
+
+### Examples
+```bash
+# Turn all nodes on
+mosquitto_pub -h localhost -t "switch/all/cmd" -m "ON"
+
+# Turn all nodes off
+mosquitto_pub -h localhost -t "switch/all/cmd" -m "OFF"
+
+# Poll current state without changing it
+mosquitto_pub -h localhost -t "switch/all/cmd" -m "POLL"
+
+# Subscribe to state updates
+mosquitto_sub -h localhost -t "switch/SS_1/state"
+```
+
 ## Roadmap
-- [ ] W5500 Ethernet on commissioner
-- [ ] Connect commissioner to Raspberry Pi MQTT broker
-- [ ] MQTT integration for humidity-threshold automation
+- [x] W5500 Ethernet on commissioner
+- [x] Connect commissioner to Raspberry Pi MQTT broker
+- [ ] MQTT integration
+- [x] Humidity-threshold automation
 - [ ] Joiner PCB
 - [ ] Finalize Commissioner PCB
 - [ ] Order and Assemble PCBs

@@ -1,0 +1,6 @@
+dependencies:
+  espressif/w5500:
+    git: https://github.com/espressif/esp-eth-drivers.git
+    path: w5500
+  espressif/mqtt:
+    git: https://github.com/espressif/esp-mqtt.git

@@ -19,7 +19,14 @@
 #define CMD_ON     0x01
 #define CMD_TOGGLE 0x02
 #define CMD_POLL   0x03
-//#define CMD_HELLO  0x04
 
 // Node table
 #define MAX_NODES 10
+
+// W5500 SPI pins
+#define W5500_SCLK  GPIO_NUM_10
+#define W5500_MOSI  GPIO_NUM_12
+#define W5500_MISO  GPIO_NUM_13
+#define W5500_CS    GPIO_NUM_11
+#define W5500_INT   GPIO_NUM_3
+#define W5500_RST   GPIO_NUM_9

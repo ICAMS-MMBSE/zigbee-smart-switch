@@ -5,5 +5,7 @@ idf_component_register(
         "discovery.c"
         "relay.c"
         "button.c"
+        "ethernet.c"
+        "mqtt.c"
     INCLUDE_DIRS "."
 )

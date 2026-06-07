@@ -1,6 +1,7 @@
 #include "relay.h"
 #include "discovery.h"
 #include "xbee.h"
+#include "mqtt.h"
 #include "config.h"
 #include "esp_log.h"
 #include "driver/gpio.h"
@@ -87,4 +88,5 @@ void relay_update_led(bool state)
 {
     set_led(state);
     ESP_LOGI(TAG, "LED updated from joiner report: %s", state ? "ON" : "OFF");
+    mqtt_publish_state("SS_1", state);
 }
