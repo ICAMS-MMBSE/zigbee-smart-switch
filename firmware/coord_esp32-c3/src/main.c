@@ -73,18 +73,14 @@ void app_main(void)
     button_init();
     relay_led_init();
     xbee_init();
-
     vTaskDelay(pdMS_TO_TICKS(2000)); // let XBee3 boot
     discover_nodes();
     print_node_table();
-
     vTaskDelay(pdMS_TO_TICKS(3000)); // give joiners time to settle before polling
     relay_poll("ALL");
-
     xTaskCreate(xbee_task,    "xbee_task",    4096, NULL, 5, NULL);
     xTaskCreate(button_task,  "button_task",  2048, NULL, 5, NULL);
     xTaskCreate(console_task, "console_task", 4096, NULL, 4, NULL);
-
     mqtt_init();
     ESP_LOGI(TAG, "Commissioner ready");
 }

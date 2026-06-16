@@ -1,0 +1,19 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.extensionActivationMode": "always",
+  "idf.currentSetup": "C:\\Dev\\esp\\v6.0.1\\esp-idf",
+  "idf.openOcdConfigs": [
+    "board/esp32c3-builtin.cfg"
+  ],
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32c3"
+  },
+  "clangd.path": "C:\\Espressif\\tools\\esp-clang\\16.0.1-fe4f10a809\\esp-clang\\bin\\clangd.exe",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=c:\\Dev\\Code\\ICAMS\\zigbee-smart-switch\\firmware\\coord_esp32-c3\\build"
+  ],
+  "idf.flashType": "JTAG",
+  "idf.portWin": "COM19"
+}

@@ -1,3 +1,3 @@
 cmake_minimum_required(VERSION 3.16)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(commissioner_esp32s3)
+project(coord_esp32-c3)

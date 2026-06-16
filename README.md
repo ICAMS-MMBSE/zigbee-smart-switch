@@ -92,19 +92,20 @@ main.c
 
 The Pi runs a Mosquitto MQTT broker and connects directly to the coordinator via ethernet.
 
-### Network
-Create `/etc/systemd/network/10-eth0.network`:
-```
-[Match]
-Name=eth0
+## Network
 
-[Network]
-Address=192.168.2.1/24
-```
-```bash
-sudo systemctl enable systemd-networkd
-sudo systemctl restart systemd-networkd
-```
+The Pi's `eth0` connects directly to the coordinator. Set a static IP via NetworkManager:
+
+​```
+sudo nmcli connection modify netplan-eth0 ipv4.method manual ipv4.addresses 192.168.2.1/24
+sudo nmcli connection up netplan-eth0
+​```
+
+Verify (survives reboot):
+
+​```
+ip -4 addr show eth0   # expect inet 192.168.2.1/24
+​```
 
 ### Mosquitto
 ```bash

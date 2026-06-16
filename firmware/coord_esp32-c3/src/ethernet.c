@@ -7,6 +7,7 @@
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "driver/spi_master.h"
+#include "driver/gpio.h"
 
 static const char *TAG = "ETHERNET";
 
@@ -74,6 +75,8 @@ void ethernet_init(void)
         .spics_io_num   = W5500_CS,
         .queue_size     = 20,
     };
+    // W5500 uses a GPIO interrupt; the ISR service must exist before driver install
+    gpio_install_isr_service(0);
     eth_w5500_config_t w5500_cfg = ETH_W5500_DEFAULT_CONFIG(SPI2_HOST, &devcfg);
     w5500_cfg.int_gpio_num   = W5500_INT;
     w5500_cfg.poll_period_ms = 0;
