@@ -6,7 +6,7 @@ A Zigbee-based smart switch system for remote dehumidifier control, built for In
 - Build a smart switch to control a device remotely
 - Integrate IoT connection through Mosquitto
 - Containerize services for portability
-- Prototype using the Digi XBee3 Zigbee 3.0 TH module with an ESP32-S3 (coordinator) and ESP32-C3 (joiner)
+- Prototype using the Digi XBee3 Zigbee 3.0 TH module with an ESP32-C3
 
 ## Frameworks & Software
 
@@ -24,7 +24,7 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 ### Setup
 
 1. Install [VS Code](https://code.visualstudio.com/) and the [PlatformIO extension](https://platformio.org/install/ide?install=vscode)
-2. Open `coordinator_esp32-s3/` or `joiner_esp32-c3/` as the workspace root in VS Code
+2. Open `coord_esp32-c3/` or `join_esp32-c3/` as the workspace root in VS Code
 3. PlatformIO will auto-detect the target from `platformio.ini`
 4. Build and flash via the PlatformIO toolbar, or `pio run -t upload`
 
@@ -46,7 +46,7 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 
 ### Firmware Structure
 
-#### Coordinator (`firmware/coordinator_esp32-s3/`)
+#### Coordinator (`firmware/coord_esp32-c3/`)
 ```
 config.h
 xbee.h/.c       — raw API frame TX/RX, AT commands, ping, RX task
@@ -75,7 +75,7 @@ main.c
 ## Hardware
 
 ### Coordinator
-- ESP32-S3-WROOM-1 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
+- ESP32-C3 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
 - GPIO: IO16 LED, IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
 
 ### Joiner
