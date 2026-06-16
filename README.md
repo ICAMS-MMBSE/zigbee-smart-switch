@@ -96,16 +96,17 @@ The Pi runs a Mosquitto MQTT broker and connects directly to the coordinator via
 
 The Pi's `eth0` connects directly to the coordinator. Set a static IP via NetworkManager:
 
-​```bash
+```bash
 sudo nmcli connection modify netplan-eth0 ipv4.method manual ipv4.addresses 192.168.2.1/24
 sudo nmcli connection up netplan-eth0
-​```
+```
 
 Verify (survives reboot):
 
-​```bash
+```bash
 ip -4 addr show eth0   # expect inet 192.168.2.1/24
-​```
+```
+
 
 ### Mosquitto
 ```bash
