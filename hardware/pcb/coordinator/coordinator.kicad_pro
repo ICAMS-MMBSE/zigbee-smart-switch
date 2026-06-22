@@ -39,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.0,
-          "height": 1.4,
-          "width": 1.025
+          "drill": 0.8,
+          "height": 1.27,
+          "width": 2.54
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -63,7 +63,7 @@
           "min_clearance": 0.5,
           "min_island_area": 10.0,
           "min_thickness": 0.25,
-          "pad_connection": 2,
+          "pad_connection": 1,
           "remove_islands": 0,
           "thermal_relief_gap": 0.5,
           "thermal_relief_spoke_width": 0.5
@@ -488,7 +488,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "commissioner_v1.kicad_pro",
+    "filename": "coordinator.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -524,7 +524,7 @@
     "last_paths": {
       "idf": "",
       "netlist": "",
-      "plot": "commissioner_v1",
+      "plot": "gerbers",
       "specctra_dsn": "",
       "vrml": ""
     },
@@ -643,18 +643,18 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "commissioner_v1.kicad_sch",
-        "name": "Root",
-        "uuid": "9abc0ff1-7e27-47f1-8943-80f7de01d3fe"
+        "filename": "coordinator.kicad_sch",
+        "name": "coordinator",
+        "uuid": "bf702d0a-f028-4a8b-b0aa-68535e129ba8"
       }
     ],
-    "used_designators": "U1-3,D1,#PWR1-16,#FLG1-2,J1,R1-5,C1-2,SW1",
+    "used_designators": "U1-2,#FLG1-3,R1-4,J1-6,D1,#PWR1-16,SW1",
     "variants": []
   },
   "sheets": [
     [
-      "9abc0ff1-7e27-47f1-8943-80f7de01d3fe",
-      "Root"
+      "bf702d0a-f028-4a8b-b0aa-68535e129ba8",
+      "coordinator"
     ]
   ],
   "text_variables": {},
