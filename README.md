@@ -3,10 +3,12 @@
 A Zigbee-based smart switch system for remote dehumidifier control, built for Industry 4.0 reliability, connectivity, and remote management.
 
 ## Purpose
-- Build a smart switch to control a device remotely
+- Build a smart switch to control a system of dehumidifiers remotely
 - Integrate IoT connection through Mosquitto
-- Containerize services for portability
-- Prototype using the Digi XBee3 Zigbee 3.0 TH module with an ESP32-C3
+
+### High-Level System Diagram
+
+![System Diagram](docs/SystemDiagram.png)
 
 ## Frameworks & Software
 
@@ -15,7 +17,6 @@ A Zigbee-based smart switch system for remote dehumidifier control, built for In
 | [Digi XCTU](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu) | Programs XBee modules |
 | [PlatformIO](https://platformio.org/) | Build system and library manager for all firmware |
 | [Mosquitto](https://github.com/eclipse-mosquitto/mosquitto) | MQTT broker |
-| [Docker Compose](https://docs.docker.com/compose/) | Containerizes each service |
 
 ## Firmware
 
@@ -153,10 +154,9 @@ mosquitto_sub -h localhost -t "switch/SS_1/state"
 - [x] Connect coordinator to Raspberry Pi MQTT broker
 - [x] MQTT integration
 - [ ] Humidity-threshold automation
-- [ ] Joiner PCB
-- [ ] Finalize coordinator PCB
+- [X] Joiner PCB
+- [X] Coordinator PCB
 - [ ] Order and Assemble PCBs
-- [ ] Containerize services
 
 ## References
 - [Digi XBee 3](https://hub.digi.com/support/products/digi-xbee/digi-xbee3/)
