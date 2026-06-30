@@ -101,9 +101,9 @@ sudo systemctl restart mosquitto
 
 The coordinator connects to the broker at a hardcoded hostname in `mqtt.c`:
 
-\```c
+```c
 .broker.address.uri = "mqtt://rpi3.local:1883"
-\```
+```
 
 > **Production note:** This hostname is compiled into the firmware. If the broker host changes (different Pi, renamed host, or production deployment), update the URI in `mqtt.c` and reflash the coordinator. A `.local` hostname requires mDNS resolution to be enabled in the firmware (`CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES=y`); if mDNS resolution is unreliable on the network, substitute the broker's IP address directly. A future revision could replace this with mDNS service discovery (`_mqtt._tcp`) to remove the hardcoded dependency entirely.
 
