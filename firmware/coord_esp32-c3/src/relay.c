@@ -8,26 +8,17 @@
 #include <string.h>
 
 static const char *TAG = "RELAY";
-static bool led_state = false;
 
 // The status LED on the commissioner mirrors the last known relay state from the joiner
 void relay_led_init(void)
 {
     gpio_config_t cfg = {
-        .pin_bit_mask = (1ULL << LED_PIN),
         .mode         = GPIO_MODE_OUTPUT,
         .pull_up_en   = GPIO_PULLUP_DISABLE,
         .pull_down_en = GPIO_PULLDOWN_DISABLE,
         .intr_type    = GPIO_INTR_DISABLE,
     };
     gpio_config(&cfg);
-    gpio_set_level(LED_PIN, 0);
-}
-
-static void set_led(bool state)
-{
-    led_state = state;
-    gpio_set_level(LED_PIN, state);
 }
 
 static void send_to_all(uint8_t cmd)
@@ -82,11 +73,4 @@ void relay_poll(const char *node_id)
         if (send_to_node(node_id, CMD_POLL))
             ESP_LOGI(TAG, "Polling %s...", node_id);
     }
-}
-
-void relay_update_led(bool state)
-{
-    set_led(state);
-    ESP_LOGI(TAG, "LED updated from joiner report: %s", state ? "ON" : "OFF");
-    mqtt_publish_state("SS_1", state);
 }

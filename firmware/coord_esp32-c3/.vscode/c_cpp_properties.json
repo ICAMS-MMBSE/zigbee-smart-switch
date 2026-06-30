@@ -223,6 +223,7 @@
                 "C:/Users/mempb/.platformio/packages/framework-espidf/components/ieee802154/include",
                 "C:/Users/mempb/.platformio/packages/framework-espidf/components/rt/include",
                 "C:/Users/mempb/.platformio/packages/framework-espidf/components/spiffs/include",
+                "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mdns/include",
                 "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/include",
                 "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/lib/mqtt_utils/include",
                 "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/lib/include",
@@ -447,6 +448,7 @@
                     "C:/Users/mempb/.platformio/packages/framework-espidf/components/ieee802154/include",
                     "C:/Users/mempb/.platformio/packages/framework-espidf/components/rt/include",
                     "C:/Users/mempb/.platformio/packages/framework-espidf/components/spiffs/include",
+                    "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mdns/include",
                     "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/include",
                     "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/lib/mqtt_utils/include",
                     "C:/Dev/Code/ICAMS/zigbee-smart-switch/firmware/coord_esp32-c3/managed_components/espressif__mqtt/lib/include",
@@ -467,6 +469,7 @@
                 "IDF_VER=\"6.0.1\"",
                 "ESP_PSA_ITS_AVAILABLE",
                 "ESP_PLATFORM",
+                "ESP_MDNS_VERSION_NUMBER=\"1.11.2\"",
                 "PLATFORMIO=60119",
                 "ARDUINO_ESP32C3_DEV",
                 ""

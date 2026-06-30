@@ -1,4 +1,5 @@
 #include "xbee.h"
+#include "mqtt.h"
 #include "discovery.h"
 #include "relay.h"
 #include "config.h"
@@ -178,12 +179,10 @@ static void parse_rx(void)
                         if (rx_frame_len > 12) {
                             uint8_t state = rx_buf[15];
                             for (uint8_t i = 0; i < nodeCount; i++) {
-                                if (nodeTable[i].addr_sh == src_sh &&
-                                    nodeTable[i].addr_sl == src_sl) {
+                                if (nodeTable[i].addr_sh == src_sh && nodeTable[i].addr_sl == src_sl) {
                                     ESP_LOGI(TAG, "%s state report: %s",
-                                             nodeTable[i].node_id,
-                                             state ? "ON" : "OFF");
-                                    relay_update_led(state);
+                                            nodeTable[i].node_id, state ? "ON" : "OFF");
+                                    mqtt_publish_state(nodeTable[i].node_id, state);
                                     break;
                                 }
                             }

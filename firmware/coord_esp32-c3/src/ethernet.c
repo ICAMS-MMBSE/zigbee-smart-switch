@@ -1,6 +1,7 @@
 #include "ethernet.h"
 #include "config.h"
 #include "esp_log.h"
+#include "esp_mac.h"
 #include "esp_eth.h"
 #include "esp_eth_mac_w5500.h"
 #include "esp_eth_phy_w5500.h"
@@ -8,6 +9,7 @@
 #include "esp_netif.h"
 #include "driver/spi_master.h"
 #include "driver/gpio.h"
+#include "mdns.h"
 
 static const char *TAG = "ETHERNET";
 
@@ -35,6 +37,13 @@ static void ip_event_handler(void *arg, esp_event_base_t event_base,
     if (event_id == IP_EVENT_ETH_GOT_IP) {
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
         ESP_LOGI(TAG, "Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
+
+        static bool mdns_started = false;
+        if (!mdns_started) {
+            ESP_ERROR_CHECK(mdns_init());
+            mdns_hostname_set("coordinator");
+            mdns_started = true;
+        }
     }
 }
 
@@ -46,15 +55,6 @@ void ethernet_init(void)
 
     esp_netif_config_t netif_cfg = ESP_NETIF_DEFAULT_ETH();
     esp_netif_t *eth_netif = esp_netif_new(&netif_cfg);
-
-    // Static IP
-    esp_netif_dhcpc_stop(eth_netif);
-    esp_netif_ip_info_t ip_info = {
-        .ip      = { .addr = ESP_IP4TOADDR(192, 168, 2, 10) },
-        .netmask = { .addr = ESP_IP4TOADDR(255, 255, 255, 0) },
-        .gw      = { .addr = ESP_IP4TOADDR(192, 168, 2, 1) },
-    };
-    esp_netif_set_ip_info(eth_netif, &ip_info);
 
     // SPI bus
     spi_bus_config_t buscfg = {
@@ -93,7 +93,8 @@ void ethernet_init(void)
     ESP_ERROR_CHECK(esp_eth_driver_install(&eth_cfg, &eth_handle));
 
     // Set MAC address
-    uint8_t mac_addr[6] = {0x02, 0x00, 0x00, 0x12, 0x34, 0x56};
+    uint8_t mac_addr[6];
+    esp_read_mac(mac_addr, ESP_MAC_ETH);
     esp_eth_ioctl(eth_handle, ETH_CMD_S_MAC_ADDR, mac_addr);
 
     ESP_ERROR_CHECK(esp_netif_attach(eth_netif, esp_eth_new_netif_glue(eth_handle)));

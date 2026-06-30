@@ -33,17 +33,17 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 
 > **Note:** You **must** use the XBee Grove Development Board and XCTU to program the XBee modules. Plug in with USB micro-B and add device to XCTU.
 
-| | Coordinator | Joiner |
-| --- | --- | --- |
-| **CE** Device Role | Form Network [1] | Join Network [0] |
-| **ID** Extended PAN ID | 1234 | 1234 |
-| **JV** Coordinator Verification | Enabled [1] | Disabled [0] |
-| **JN** Join Notification | Disabled [0] | Enabled [1] |
-| **NI** Node Identifier | SS_Comm | SS_x (0...) |
-| **BD** UART Baud Rate | 115200 | 115200 |
-| **AP** API Enable | API Mode [1] | API Mode [1] |
-| **SM** Sleep Mode | No Sleep [0] | No Sleep [0] |
-| **EE** Encryption Enable | Disabled [0] | Disabled [0] |
+| | Coordinator | Joiner | Router |
+| --- | --- | --- | --- |
+| **CE** Device Role | Form Network [1] | Join Network [0] | Join Network [0] |
+| **ID** Extended PAN ID | 1234 | 1234 | 1234 |
+| **JV** Coordinator Verification | Enabled [1] | Disabled [0] | Disabled [0] |
+| **JN** Join Notification | Disabled [0] | Enabled [1] | Enabled [1] |
+| **NI** Node Identifier | SS_Comm | SS_x (0...) | RT_x (0...) |
+| **BD** UART Baud Rate | 115200 | 115200 | 115200 |
+| **AP** API Enable | API Mode Without Escapes [1] | API Mode Without Escapes [1] | API Mode Without Escapes [1] |
+| **SM** Sleep Mode | No Sleep [0] | No Sleep [0] | No Sleep [0] |
+| **EE** Encryption Enable | Disabled [0] | Disabled [0] | Disabled [0] |
 
 ### Firmware Structure
 
@@ -52,10 +52,10 @@ Firmware is written in C using the ESP-IDF framework with FreeRTOS, built and fl
 config.h
 xbee.h/.c       — raw API frame TX/RX, AT commands, ping, RX task
 discovery.h/.c  — ND-based dynamic node table
-relay.h/.c      — command routing, LED state
+relay.h/.c      — command routing
 button.h/.c     — physical button, triggers toggle to all nodes
-ethernet.h/.c   — W5500 SPI ethernet, static IP
-mqtt.h/.c       — MQTT client, command handler, state publisher
+ethernet.h/.c   — W5500 SPI ethernet, DHCP
+mqtt.h/.c       — MQTT client, command handler (switch/+/cmd), state publisher
 main.c
 ```
 
@@ -77,7 +77,7 @@ main.c
 
 ### Coordinator
 - ESP32-C3 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
-- GPIO: IO16 LED, IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
+- GPIO: IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
 
 ### Joiner
 - ESP32-C3 Super Mini + XBee3 Zigbee 3.0 TH
@@ -85,78 +85,54 @@ main.c
 - Mains load switched via relay on cut extension cord
 - Powered from relay supply line, no USB required
 
-## KiCad Setup
-- Coordinator PCB in progress
-- Joiner PCB pending Dr. Osho power spec confirmation
-
 ## Raspberry Pi Broker Setup
 
 The Pi runs a Mosquitto MQTT broker and connects directly to the coordinator via ethernet.
-
-## Network
-
-The Pi's `eth0` connects directly to the coordinator. Set a static IP via NetworkManager:
-
-```bash
-sudo nmcli connection modify netplan-eth0 ipv4.method manual ipv4.addresses 192.168.2.1/24
-sudo nmcli connection up netplan-eth0
-```
-
-Verify (survives reboot):
-
-```bash
-ip -4 addr show eth0   # expect inet 192.168.2.1/24
-```
-
 
 ### Mosquitto
 ```bash
 sudo apt update && sudo apt install -y mosquitto mosquitto-clients
 sudo systemctl enable mosquitto
-```
-
-Create `/etc/mosquitto/conf.d/local.conf`:
-```
-listener 1883
-allow_anonymous true
-```
-```bash
+printf 'listener 1883\nallow_anonymous true\n' | sudo tee /etc/mosquitto/conf.d/local.conf
 sudo systemctl restart mosquitto
 ```
+
+### Broker Connection
+
+The coordinator connects to the broker at a hardcoded hostname in `mqtt.c`:
+
+\```c
+.broker.address.uri = "mqtt://rpi3.local:1883"
+\```
+
+> **Production note:** This hostname is compiled into the firmware. If the broker host changes (different Pi, renamed host, or production deployment), update the URI in `mqtt.c` and reflash the coordinator. A `.local` hostname requires mDNS resolution to be enabled in the firmware (`CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES=y`); if mDNS resolution is unreliable on the network, substitute the broker's IP address directly. A future revision could replace this with mDNS service discovery (`_mqtt._tcp`) to remove the hardcoded dependency entirely.
 
 ### MQTT Topics
 | Topic | Direction | Description |
 |-------|-----------|-------------|
 | `switch/all/cmd` | Pi → Coordinator | Command all nodes |
-| `switch/1/cmd` | Pi → Coordinator | Command node 1 |
-| `switch/SS_1/state` | Coordinator → Pi | Joiner state report |
+| `switch/SS_<n>/cmd` | Pi → Coordinator | Command individual node |
+| `switch/SS_<n>/state` | Coordinator → Pi | Per-node joiner state report |
 
 Supported commands: `ON`, `OFF`, `TOGGLE`, `POLL`
 
 ### Examples
 ```bash
-# Turn all nodes on
+# All nodes on / off
 mosquitto_pub -h localhost -t "switch/all/cmd" -m "ON"
-
-# Turn all nodes off
 mosquitto_pub -h localhost -t "switch/all/cmd" -m "OFF"
 
-# Poll current state without changing it
-mosquitto_pub -h localhost -t "switch/all/cmd" -m "POLL"
+# Individual node
+mosquitto_pub -h localhost -t "switch/SS_0/cmd" -m "ON"
+mosquitto_pub -h localhost -t "switch/SS_1/cmd" -m "TOGGLE"
 
-# Subscribe to state updates
-mosquitto_sub -h localhost -t "switch/SS_1/state"
+# Poll without changing state
+mosquitto_pub -h localhost -t "switch/SS_1/cmd" -m "POLL"
+mosquitto_pub -h localhost -t "switch/SS_0/cmd" -m "POLL"
+
+# Subscribe to all state updates
+mosquitto_sub -h localhost -t "switch/+/state" -v
 ```
-
-## Roadmap
-- [x] Finalize coordinator and joiner firmware
-- [x] W5500 Ethernet on coordinator
-- [x] Connect coordinator to Raspberry Pi MQTT broker
-- [x] MQTT integration
-- [ ] Humidity-threshold automation
-- [X] Joiner PCB
-- [X] Coordinator PCB
-- [ ] Order and Assemble PCBs
 
 ## References
 - [Digi XBee 3](https://hub.digi.com/support/products/digi-xbee/digi-xbee3/)

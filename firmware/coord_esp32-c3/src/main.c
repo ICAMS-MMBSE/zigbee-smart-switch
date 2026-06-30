@@ -71,7 +71,6 @@ void app_main(void)
     ESP_LOGI(TAG, "Commissioner starting...");
     ethernet_init();
     button_init();
-    relay_led_init();
     xbee_init();
     vTaskDelay(pdMS_TO_TICKS(2000)); // let XBee3 boot
     discover_nodes();

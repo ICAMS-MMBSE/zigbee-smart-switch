@@ -3,7 +3,6 @@
 #include "driver/uart.h"
 
 // Pin definitions
-#define LED_PIN     GPIO_NUM_4
 #define BTN_PIN     GPIO_NUM_3
 #define XBEE_RX     GPIO_NUM_1
 #define XBEE_TX     GPIO_NUM_0
