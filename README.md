@@ -76,14 +76,10 @@ main.c
 ## Hardware
 
 ### Coordinator
-- ESP32-C3 + XBee3 Zigbee 3.0 TH + W5500 Ethernet
-- GPIO: IO15 button, IO6/IO7 XBee UART, IO10-13 W5500 SPI
+- ESP32-C3 Super Mini + XBee3 Zigbee 3.0 TH + W5500 Ethernet
 
 ### Joiner
 - ESP32-C3 Super Mini + XBee3 Zigbee 3.0 TH
-- 2N2222A transistor (low-side switch), 1N4001 flyback diode, 5V relay
-- Mains load switched via relay on cut extension cord
-- Powered from relay supply line, no USB required
 
 ## Raspberry Pi Broker Setup
 
