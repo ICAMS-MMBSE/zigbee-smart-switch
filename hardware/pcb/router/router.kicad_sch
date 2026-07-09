@@ -2300,7 +2300,7 @@
 		(uuid "8a8e4740-07d7-4914-a0c8-49277780b911")
 	)
 	(no_connect
-		(at 173.99 115.57)
+		(at 193.04 109.22)
 		(uuid "0c67f81f-40ad-4674-95d8-8482a29b22ec")
 	)
 	(no_connect
@@ -2308,27 +2308,27 @@
 		(uuid "177129c2-f259-4da5-b64e-7ca33c456bc3")
 	)
 	(no_connect
-		(at 157.48 128.27)
+		(at 176.53 121.92)
 		(uuid "1aecad8b-ebbf-4d2a-af70-baae331a8e6f")
 	)
 	(no_connect
-		(at 157.48 125.73)
+		(at 176.53 119.38)
 		(uuid "1e94121c-9e84-4875-85fd-ab5584fed0e9")
 	)
 	(no_connect
-		(at 157.48 113.03)
+		(at 176.53 106.68)
 		(uuid "3c62d885-825b-495c-bbb6-5cd723541c96")
 	)
 	(no_connect
-		(at 173.99 120.65)
+		(at 193.04 114.3)
 		(uuid "49a02736-86cf-40ad-a237-e1643d63db36")
 	)
 	(no_connect
-		(at 173.99 110.49)
+		(at 193.04 104.14)
 		(uuid "502604df-1381-4bf6-b5ca-8eb6f885b38d")
 	)
 	(no_connect
-		(at 173.99 113.03)
+		(at 193.04 106.68)
 		(uuid "614e14d7-026f-47bd-9edc-b2e95a8cd633")
 	)
 	(no_connect
@@ -2336,19 +2336,19 @@
 		(uuid "68b7f8cc-a261-4a14-bff6-6d8479dd4c26")
 	)
 	(no_connect
-		(at 173.99 133.35)
+		(at 193.04 127)
 		(uuid "79c9e7fc-b5c9-427f-9012-cbd0f072f76a")
 	)
 	(no_connect
-		(at 157.48 115.57)
+		(at 176.53 109.22)
 		(uuid "83e56258-9dd1-4161-b1e6-2da8a35ed677")
 	)
 	(no_connect
-		(at 157.48 123.19)
+		(at 176.53 116.84)
 		(uuid "8cb3f98f-7267-4537-a759-b61cfe9e1924")
 	)
 	(no_connect
-		(at 173.99 118.11)
+		(at 193.04 111.76)
 		(uuid "8ef05229-39ca-4daa-830c-74b4629bc889")
 	)
 	(no_connect
@@ -2356,27 +2356,27 @@
 		(uuid "97730094-e688-4625-b966-1b2027a80d30")
 	)
 	(no_connect
-		(at 157.48 130.81)
+		(at 176.53 124.46)
 		(uuid "9f4d2c32-ee09-42a8-98df-909d8da2fa7e")
 	)
 	(no_connect
-		(at 173.99 125.73)
+		(at 193.04 119.38)
 		(uuid "b79c3782-b1f0-4764-8653-225e66653c52")
 	)
 	(no_connect
-		(at 173.99 123.19)
+		(at 193.04 116.84)
 		(uuid "c0861c3f-791c-4272-9234-03822a44a7fd")
 	)
 	(no_connect
-		(at 173.99 128.27)
+		(at 193.04 121.92)
 		(uuid "c08d84ac-5ee2-4896-b65b-a146fa0f06c0")
 	)
 	(no_connect
-		(at 157.48 118.11)
+		(at 176.53 111.76)
 		(uuid "c797eff3-9d9f-4ba4-8857-cf1b5658d65c")
 	)
 	(no_connect
-		(at 173.99 130.81)
+		(at 193.04 124.46)
 		(uuid "d4a4c481-8998-4325-a9c6-7bb3ed67d0cb")
 	)
 	(no_connect
@@ -2525,7 +2525,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 153.67 120.65 90)
+		(at 172.72 114.3 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2535,7 +2535,7 @@
 		(dnp no)
 		(uuid "07d0e31b-af31-4ac5-b348-c8de82c934f4")
 		(property "Reference" "R1"
-			(at 153.67 123.19 90)
+			(at 172.72 116.84 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2545,7 +2545,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 153.67 125.73 90)
+			(at 172.72 119.38 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2555,7 +2555,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 153.67 122.428 90)
+			(at 172.72 116.078 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2566,7 +2566,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 120.65 0)
+			(at 172.72 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2577,7 +2577,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 153.67 120.65 0)
+			(at 172.72 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2793,7 +2793,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
 			(at 154.6352 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -2843,7 +2843,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 149.86 120.65 90)
+		(at 168.91 114.3 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2854,7 +2854,7 @@
 		(fields_autoplaced yes)
 		(uuid "5a298c83-d3f3-4523-857d-b6de20d1b705")
 		(property "Reference" "#PWR05"
-			(at 153.67 120.65 0)
+			(at 172.72 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2865,7 +2865,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 146.05 120.6499 90)
+			(at 165.1 114.2999 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2876,7 +2876,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 120.65 0)
+			(at 168.91 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2887,7 +2887,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 120.65 0)
+			(at 168.91 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2898,7 +2898,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 149.86 120.65 0)
+			(at 168.91 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3032,7 +3032,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical"
 			(at 109.22 114.3 0)
 			(hide yes)
 			(show_name no)
@@ -3100,7 +3100,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x10_Socket")
-		(at 168.91 120.65 0)
+		(at 187.96 114.3 0)
 		(mirror y)
 		(unit 1)
 		(body_style 1)
@@ -3111,7 +3111,7 @@
 		(dnp no)
 		(uuid "92780876-ab87-4efa-bf9e-32575fa209a5")
 		(property "Reference" "J2"
-			(at 178.308 105.156 0)
+			(at 197.358 98.806 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3122,7 +3122,7 @@
 			)
 		)
 		(property "Value" "XBee3 TH"
-			(at 178.054 107.442 0)
+			(at 197.104 101.092 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3132,8 +3132,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.00mm:PinHeader_1x10_P2.00mm_Vertical"
-			(at 168.91 120.65 0)
+		(property "Footprint" "Connector_PinSocket_2.00mm:PinSocket_1x10_P2.00mm_Vertical"
+			(at 187.96 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3144,7 +3144,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 168.91 120.65 0)
+			(at 187.96 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3155,7 +3155,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x10, script generated"
-			(at 168.91 120.65 0)
+			(at 187.96 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3206,7 +3206,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 157.48 133.35 270)
+		(at 176.53 127 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3217,7 +3217,7 @@
 		(fields_autoplaced yes)
 		(uuid "98905c10-b5ca-4343-a00a-94a90287cafd")
 		(property "Reference" "#PWR02"
-			(at 151.13 133.35 0)
+			(at 170.18 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3228,7 +3228,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 153.67 133.3499 90)
+			(at 172.72 126.9999 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3239,7 +3239,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 133.35 0)
+			(at 176.53 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3250,7 +3250,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 133.35 0)
+			(at 176.53 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3261,7 +3261,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 157.48 133.35 0)
+			(at 176.53 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3491,7 +3491,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
 			(at 126.6952 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -3699,7 +3699,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 157.48 110.49 90)
+		(at 176.53 104.14 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3710,7 +3710,7 @@
 		(fields_autoplaced yes)
 		(uuid "bb486ea6-68ad-4998-a746-5bb92a0b6127")
 		(property "Reference" "#PWR04"
-			(at 161.29 110.49 0)
+			(at 180.34 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3721,7 +3721,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 153.67 110.4899 90)
+			(at 172.72 104.1399 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3732,7 +3732,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 110.49 0)
+			(at 176.53 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3743,7 +3743,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 110.49 0)
+			(at 176.53 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3754,7 +3754,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 157.48 110.49 0)
+			(at 176.53 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3938,7 +3938,7 @@
 	(symbol
 		(lib_name "Conn_01x10_Socket_1")
 		(lib_id "Connector:Conn_01x10_Socket")
-		(at 162.56 120.65 0)
+		(at 181.61 114.3 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3948,7 +3948,7 @@
 		(dnp no)
 		(uuid "fe2846cc-a574-442e-a463-d43e7451e942")
 		(property "Reference" "J1"
-			(at 153.924 105.156 0)
+			(at 172.974 98.806 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3959,7 +3959,7 @@
 			)
 		)
 		(property "Value" "XBee3 TH"
-			(at 153.67 107.442 0)
+			(at 172.72 101.092 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3969,8 +3969,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.00mm:PinHeader_1x10_P2.00mm_Vertical"
-			(at 162.56 120.65 0)
+		(property "Footprint" "Connector_PinSocket_2.00mm:PinSocket_1x10_P2.00mm_Vertical"
+			(at 181.61 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3981,7 +3981,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 162.56 120.65 0)
+			(at 181.61 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3992,7 +3992,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x10, script generated"
-			(at 162.56 120.65 0)
+			(at 181.61 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
