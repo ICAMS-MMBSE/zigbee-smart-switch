@@ -524,7 +524,7 @@
     "last_paths": {
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "router_gerbers",
       "specctra_dsn": "",
       "vrml": ""
     },
@@ -648,7 +648,7 @@
         "uuid": "c4038327-6529-414f-b3bf-2eb8afd2f69f"
       }
     ],
-    "used_designators": "#PWR2-7,#PWR10,#PWR12-13,R1-2,R4,J1-3,J5,U1,C1-2",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [

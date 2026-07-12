@@ -524,7 +524,7 @@
     "last_paths": {
       "idf": "",
       "netlist": "",
-      "plot": "joiner-control_gerbers/",
+      "plot": "joiner_gerbers/",
       "specctra_dsn": "",
       "vrml": ""
     },
@@ -648,7 +648,7 @@
         "uuid": "61d3a624-d0a8-4213-bde0-52ec705ce7c4"
       }
     ],
-    "used_designators": "U2-3,D2,#PWR10-13,K1,F1,R2,R4,J3-4",
+    "used_designators": "#FLG1,#FLG4,J3,J5-6",
     "variants": []
   },
   "sheets": [
